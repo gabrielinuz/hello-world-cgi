@@ -115,7 +115,7 @@ int main()
     cout << "<!DOCTYPE html>\n";
     cout << "<html>\n";
     cout << "<head>\n";
-    cout << "<title>Hello World - Firts CGI Program</title>\n";
+    cout << "<title>Hello World - Third CGI Program</title>\n";
     cout << "<meta charset='utf-8'>\n";
     cout << "</head>\n";
     cout << "<body>\n";
@@ -128,7 +128,7 @@ int main()
 
     map<string, string> requestMap = getRequestMap();
 
-    cout << "<h2>Hello! " << urlDecode(requestMap["txt1"]) << " This is my first CGI program</h2>\n";
+    cout << "<h2>Hello! " << urlDecode(requestMap["txt1"]) << " This is my third CGI program</h2>\n";
 
     cout << "</body>\n";
     cout << "</html>\n";

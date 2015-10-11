@@ -23,29 +23,29 @@
 
 #include <iostream>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <sstream>//FOR EXPLODE
 
 using namespace std;
 
 //DECODE URI FORMAT
-string urlDecode(string &SRC)
+string urlDecode(string &input)
 {
     string ret;
     char ch;
     int i, ii;
-    for (i=0; i<SRC.length(); i++)
+    for (i=0; i<input.length(); i++)
     {
-        if (int(SRC[i])==37)
+        if (int(input[i])==37)
         {
-            sscanf(SRC.substr(i+1,2).c_str(), "%x", &ii);
+            sscanf(input.substr(i+1,2).c_str(), "%x", &ii);
             ch=static_cast<char>(ii);
             ret+=ch;
             i=i+2;
         } else
         {
-            ret+=SRC[i];
+            ret+=input[i];
         }
     }
     return (ret);
@@ -88,15 +88,15 @@ string getRequestString()
 }
 
 //GENERATE REQUEST MAP
-map<string, string> getRequestMap()
+unordered_map<string, string> getRequestMap()
 {
     string requestString = getRequestString();
-    vector<string> keysWithValues = explode(requestString, '&');
+    vector<string> keysWithValues = explode(urlDecode(requestString), '&');
     vector<string> keysAndValues;
     vector<string>::iterator i;
 
     int aux = 0;
-    map<string, string> requestMap;
+    unordered_map<string, string> requestMap;
 
     for(i = keysWithValues.begin(); i != keysWithValues.end(); i++)
     {
@@ -115,7 +115,7 @@ int main()
     cout << "<!DOCTYPE html>\n";
     cout << "<html>\n";
     cout << "<head>\n";
-    cout << "<title>Hello World - Third CGI Program</title>\n";
+    cout << "<title>Hello World - Firts CGI Program</title>\n";
     cout << "<meta charset='utf-8'>\n";
     cout << "</head>\n";
     cout << "<body>\n";
@@ -126,9 +126,9 @@ int main()
     cout << "<input type='submit' name='sbmt1' value='enviar'>\n";
     cout << "</form>\n";
 
-    map<string, string> requestMap = getRequestMap();
+    unordered_map<string, string> requestMap = getRequestMap();
 
-    cout << "<h2>Hello! " << urlDecode(requestMap["txt1"]) << " This is my third CGI program</h2>\n";
+    cout << "<h2>Hello! " << requestMap["txt1"] << " This is my Refactoring 02 CGI program</h2>\n";
 
     cout << "</body>\n";
     cout << "</html>\n";

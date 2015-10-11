@@ -21,19 +21,18 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **/
 
+#ifndef IDECODER_H
+#define IDECODER_H
+
+#include <string>
 #include <iostream>
+
 using namespace std;
 
-int main()
+class IDecoder
 {
-    cout << "Content-type:text/html\r\n\r\n";
-    cout << "<html>\n";
-    cout << "<head>\n";
-    cout << "<title>Hello World - First CGI Program</title>\n";
-    cout << "</head>\n";
-    cout << "<body>\n";
-    cout << "<h2>Hello World! This is my Plain CGI program</h2>\n";
-    cout << "</body>\n";
-    cout << "</html>\n";
-    return 0;
-}
+    public:
+    	virtual string decode(string &input) = 0;
+};
+
+#endif // IDECODER_H

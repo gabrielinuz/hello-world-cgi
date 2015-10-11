@@ -21,19 +21,22 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **/
 
-#include <iostream>
-using namespace std;
+#ifndef COPONENTFACTORY_H
+#define COPONENTFACTORY_H
 
-int main()
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+#include "ILibraryLoader.h"
+#include "LibraryLoader.h"
+#include "IComponent.h"
+
+class ComponentFactory
 {
-    cout << "Content-type:text/html\r\n\r\n";
-    cout << "<html>\n";
-    cout << "<head>\n";
-    cout << "<title>Hello World - First CGI Program</title>\n";
-    cout << "</head>\n";
-    cout << "<body>\n";
-    cout << "<h2>Hello World! This is my Plain CGI program</h2>\n";
-    cout << "</body>\n";
-    cout << "</html>\n";
-    return 0;
-}
+    public:
+        ComponentFactory();
+        virtual ~ComponentFactory();
+        static IComponent* createFrom(string path);
+};
+
+#endif // COPONENTFACTORY_H

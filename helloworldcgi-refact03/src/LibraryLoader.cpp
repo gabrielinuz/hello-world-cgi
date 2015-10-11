@@ -21,19 +21,60 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **/
 
-#include <iostream>
-using namespace std;
+#include "../include/LibraryLoader.h"
 
-int main()
+LibraryLoader* LibraryLoader::m_instance = 0;
+
+LibraryLoader::LibraryLoader()
 {
-    cout << "Content-type:text/html\r\n\r\n";
-    cout << "<html>\n";
-    cout << "<head>\n";
-    cout << "<title>Hello World - First CGI Program</title>\n";
-    cout << "</head>\n";
-    cout << "<body>\n";
-    cout << "<h2>Hello World! This is my Plain CGI program</h2>\n";
-    cout << "</body>\n";
-    cout << "</html>\n";
-    return 0;
+    //ctor
+}
+
+LibraryLoader::~LibraryLoader()
+{
+    //dtor
+}
+
+LibraryLoader* LibraryLoader::getInstance()
+{
+    if(m_instance == 0)
+    {
+        m_instance = new LibraryLoader();
+    }
+    return m_instance;
+}
+
+void* LibraryLoader::loadLibrary(string name)
+{
+    #ifdef __unix__
+        name += ".so";
+        m_library = dlopen(name.c_str(), RTLD_NOW);
+    #elif defined(_WIN32) || defined(WIN32)
+        name += ".dll";
+        m_library = (void*) LoadLibrary(name.c_str());
+    #endif // defined
+
+    return m_library;
+}
+
+void* LibraryLoader::getExternalFunction(string name)
+{
+    #ifdef __unix__
+        m_method = dlsym(m_library, name.c_str());
+    #elif defined(_WIN32) || defined(WIN32)
+        m_method = (void*) GetProcAddress((HINSTANCE)m_library, name.c_str());
+    #endif // defined
+
+    return m_method;
+}
+
+bool LibraryLoader::freeLibrary()
+{
+    #ifdef __unix__
+        m_freedom = dlclose(m_library);
+    #elif defined(_WIN32) || defined(WIN32)
+        m_freedom = FreeLibrary((HINSTANCE)m_library);
+    #endif // defined
+
+    return m_freedom;
 }

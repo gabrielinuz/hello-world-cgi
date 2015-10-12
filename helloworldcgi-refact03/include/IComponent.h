@@ -30,6 +30,8 @@
 class IComponent
 {
     public:
+        virtual ~IComponent(){}
+        
         virtual bool implements(std::string interfaceName) = 0;
         virtual void* getInstance() = 0;
         virtual void release() = 0;

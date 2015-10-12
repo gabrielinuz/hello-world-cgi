@@ -35,10 +35,11 @@ using namespace std;
 class IRequestAnalyzer
 {
     public:
+        virtual ~IRequestAnalyzer() {}
+    	
     	virtual void setExploder(IComponent* exploder_component) = 0;
     	virtual void setDecoder(IComponent* decoder_component) = 0;
     	virtual unordered_map<string, string> getRequestMap() = 0;
-
 };
 
 #endif // IREQUESTANALYZER_H

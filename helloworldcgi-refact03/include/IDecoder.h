@@ -32,6 +32,8 @@ using namespace std;
 class IDecoder
 {
     public:
+    	virtual ~IDecoder(){}
+    	
     	virtual string decode(string &input) = 0;
 };
 

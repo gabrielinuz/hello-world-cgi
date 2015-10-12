@@ -31,6 +31,7 @@ class ILibraryLoader
 {
     public:
         virtual ~ILibraryLoader() {}
+        
         virtual void* loadLibrary(string name) = 0;
         virtual void* getExternalFunction(string name) = 0;
         virtual bool freeLibrary() = 0;

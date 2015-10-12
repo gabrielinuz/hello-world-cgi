@@ -33,6 +33,8 @@ using namespace std;
 class IExploder
 {
     public:
+    	virtual ~IExploder(){}
+    	
     	virtual vector<string> explode(string const &input, char delimiter) = 0;
 };
 
